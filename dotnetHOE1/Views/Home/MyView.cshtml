@@ -1,0 +1,23 @@
+@model HandsOnEx.Models.FavDestination
+
+@{
+    Layout = null;
+}
+
+<!doctype html>
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    </head>
+    <body style="850px; margin:20px auto; font-size:xx-large">
+        <div class="text-center">
+            <h2>Look Pa, I can use a Razor View</h2>
+            <h3>@ViewBag.Message</h3>
+            <h4>What is your favorite destination?</h4>
+            <a class="btn btn-primary" asp-action="FavDestinationForm" method="get">Give us details</a>
+        </div>
+
+    </body>
+</html>

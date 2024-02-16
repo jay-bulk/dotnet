@@ -1,0 +1,70 @@
+@model HandsOnEx.Models.FavDestination
+
+@{
+Layout = null;
+}
+
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Favorite Destination Form</title>
+</head>
+
+<body style="width:75%; margin:20px auto; font-size:x-large">
+    <h4>Your Favorite Destination</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="FavDestinationForm" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label">Your Name:</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="DestinationName" class="control-label">Your Favorite Destination:</label>
+                    <input asp-for="DestinationName" class="form-control" />
+                    <span asp-validation-for="DestinationName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Cost" class="control-label">What would it cost?</label>
+                    <input asp-for="Cost" class="form-control" />
+                    <span asp-validation-for="Cost" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TravelMode" class="control-label">How would you get there?</label>
+                    <select asp-for="TravelMode" class="form-control">
+                        <option value="">
+                            Choose an option
+                        </option>
+                        <option value="road">
+                            By Road
+                        </option>
+                        <option value="rail">
+                            By Train
+                        </option>
+                        <option value="sea">
+                            By Sea
+                        </option>
+                        <option value="air">
+                            By Air
+                        </option>
+                    </select>
+                    <span asp-validation-for="TravelMode" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <div>
+        <a asp-action="Index">Home</a>
+    </div>
+</body>
+
+</html>
