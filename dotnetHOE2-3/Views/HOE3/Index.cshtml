@@ -1,0 +1,30 @@
+@* model Employee; *@
+@model Employee;
+
+@{
+ViewData["Title"] = "Index";
+Layout = "~/Views/Shared/_HOE3Layout.cshtml";
+}
+
+@*
+<p>Name: @Model?.Name</p>
+<p>Department: @Model?.Department</p>
+<p>Salary: @($"{Model?.Salary:c0}")</p>
+<p>Full: @Model?.Salary</p> *@
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Employee e in Model) {
+        <tr>
+            <td>@e?.Name</td>
+            <td>@($"{e?.Salary:c0}")</td>
+        </tr>
+        }
+    </tbody>
+</table>

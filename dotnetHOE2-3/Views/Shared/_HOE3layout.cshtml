@@ -1,0 +1,28 @@
+<!doctype html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <style>
+        body {
+            width: 850px;
+            margin: 20px auto;
+            font-size: x-large;
+        }
+
+        #mainDiv {
+            padding: 20px;
+            border: solid medium black;
+        }
+    </style>
+</head>
+
+<body>
+    <div #mainDiv>
+        @RenderBody()
+    </div>
+</body>
+
+</html>

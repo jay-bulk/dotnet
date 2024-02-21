@@ -1,0 +1,66 @@
+@model HandsOnEx.Models.FavDestination
+
+@{
+Layout = null;
+}
+
+<!doctype html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <title>Confirmation</title>
+</head>
+
+<body style="width: 850px; margin:20px auto; font-size:x-large;">
+    <div>
+        <h4>Thank You, @Model.Name</h4>
+        <hr />
+        <dl class="row">
+            <dt class="cols-md-6">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-md-6">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="cols-md-6">
+                @Html.DisplayNameFor(model => model.DestinationName)
+            </dt>
+            <dd class="col-md-6">
+                @Html.DisplayFor(model => model.DestinationName)
+            </dd>
+            <dt class="cols-md-6">
+                @Html.DisplayNameFor(model => model.Cost)
+            </dt>
+            <dd class="col-md-6">
+                @Html.DisplayFor(model => model.Cost)
+            </dd>
+            <dt class="cols-md-6">
+                @Html.DisplayNameFor(model => model.TravelMode)
+            </dt>
+            <dd class="col-md-6">
+                @Html.DisplayFor(model => model.TravelMode)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <p>
+            @if (Model.TravelMode == "road") {
+            @: Break the speed of sound?
+            }
+            else if (Model.TravelMode == "rail") {
+            @: Drinkin' coffee in fancy dining car?
+            }
+            else if (Model.TravelMode == "sea") {
+            @: Tiem for a cool change?
+            } else {
+            @: Escaping this irresistable grasp?
+            }
+        </p>
+        <a asp-action="ShowDestinations">See all Destinations</a>
+        <a asp-action="Index">Home</a>
+    </div>
+</body>
+
+</html>
