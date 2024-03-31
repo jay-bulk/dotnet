@@ -1,0 +1,48 @@
+﻿@*Demo 7 - Shopping Cart; LV*@
+
+@model IEnumerable<Demo7.Models.Product>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h2>Tara Store - Search our Catalog</h2>
+
+<form asp-action="Search" method="post">
+    <div class="form-actions no-color">
+        <p>
+            Filter By Product Name: <input maxlength="20" type="text" name="searchName" value="@ViewData["NameFilter"]" />
+            Minimim Price: <input type="number" min="0" max="1000" name="priceMin" value="@ViewData["PriceMinFilter"]" />
+            Maximum Price: <input type="number" min="0" max="1000" name="priceMax" value="@ViewData["PriceMaxFilter"]" />
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Search" class="btn btn-link">All Products</a>
+        </p>
+    </div>
+</form>
+
+@if (Model != null)
+{
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th style="width:30%">
+                    Product
+                </th>
+                <th style="width:5%">
+                    Price
+                </th>
+                <th style="width:65%">Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td><a asp-action="Details" asp-route-id="@p.ProductPK">@p.ModelName</a></td>
+                    <td style="text-align:right">@p.UnitCost.ToString("c")</td>
+                    <td>@p.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

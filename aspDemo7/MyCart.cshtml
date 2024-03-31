@@ -1,0 +1,105 @@
+﻿@*Demo 7 - Shopping Cart; LV*@
+
+@model Cart
+
+@{
+    ViewData["Title"] = "MyCart";
+}
+
+@*Get the identity associated with the claims principal *@
+
+@{
+    var identity = Context.User.Identity;
+    bool isAuth = identity?.IsAuthenticated ?? false;
+}
+<h1>
+    @((isAuth) ? $"Your Cart - {@identity?.Name}" : "Tara Store - Your Cart")
+</h1>
+
+<p>
+    <a asp-action="Search" asp-controller="Shop">Continue Shopping</a>
+</p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>
+                Image
+            </th>
+            <th>
+                Product
+            </th>
+            <th class="text-right">
+                Price
+            </th>
+            <th class="text-right">
+                Quantity
+            </th>
+
+            <th class="text-right">
+                Extended price
+            </th>
+
+            <th>
+
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.CartItems())
+        {
+            <tr>
+                <td>
+                    <img src="https://cisweb.biz.colostate.edu/leov/aspcore/images/productthumbnails/@item.Product.Thumbnail" height="100" width="100" alt="@item.Product.ModelName" />
+                </td>
+                <td>
+                    <a asp-action="Details" asp-controller="Shop" asp-route-id="@item.Product.ProductPK">@item.Product.ModelName</a>
+                </td>
+                <td class="text-right">
+                    @item.Product.UnitCost.ToString("c")
+                </td>
+
+                <td class="text-right">
+                    <form asp-action="UpdateCart" asp-controller="Shop" method="post">
+                        <input type="hidden" value="@item.Product.ProductPK" name="productPK" />
+                        <input type="number" value="@item.Quantity" name="qty" size="2" required min="1" max="20" />
+                        <input type="submit" class="btn btn-sm btn-warning" value="Update Quantity" />
+                    </form>
+                </td>
+
+                <td class="text-right">
+                    @((item.Quantity * item.Product.UnitCost).ToString("c"))
+                </td>
+
+                <td>
+                    <form asp-action="RemoveFromCart" asp-controller="Shop" method="post">
+                        <input type="hidden" value="@item.Product.ProductPK" name="productPK" />
+                        <input type="submit" class="btn btn-sm btn-danger" value="Remove Product" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5" class="text-right">
+                Order Total:
+            </td>
+            <td>
+                @Model.ComputeOrderTotal()?.ToString("c")
+            </td>
+        </tr>
+    </tfoot>
+</table>
+
+<p>
+    @if (isAuth)
+    {
+        <a asp-action="PlaceOrder" asp-controller="Restrict">Place Order</a>
+    }
+    else
+    {
+        <a asp-action="CheckOut" asp-controller="Restrict">Check Out</a>
+    }
+</p>
+

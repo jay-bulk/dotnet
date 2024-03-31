@@ -1,0 +1,48 @@
+﻿@*Demo 8 - Complete Application; LV;*@
+
+@model Demo8.Models.FilmReview
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h3>Rockwell Studios - Delete Review</h3>
+
+<h4>Are you sure you want to delete your review of "@Model.FilmFKNavigation.MovieTitle"?</h4>
+<div>
+   
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReviewDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReviewDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReviewSummary)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReviewSummary)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReviewRating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReviewRating)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ReviewUpdateDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ReviewUpdateDate)
+        </dd>
+        
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ReviewPK" />
+        <input type="submit" value="Delete Review" class="btn btn-danger" /> |
+        <a asp-action="MyReviews" asp-controller="Review" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

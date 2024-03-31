@@ -1,0 +1,26 @@
+﻿@*Demo 8 - Complete Application; LV*@
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+@*Get the identity associated with the claims principal *@
+
+@{
+    var identity = Context.User.Identity;
+    bool isAuth = identity?.IsAuthenticated ?? false;
+}
+
+<div class="text-center">
+    @if (isAuth)
+    {
+        <h3>Welcome back to Rockwell Studios, @identity?.Name!</h3>
+    }
+    else
+    {
+        <h3>Hello, and welcome to Rockwell Studios!</h3>
+    }
+
+    <p>You can find information about our classic and contemporary films and read reviews by our members.</p>
+    <p>Become a member today and add your own reviews. We know you are a better judge of our films than those snooty "critics" at the Collegian.</p>
+    <p>Enjoy your visit. Have fun!</p>
+</div>

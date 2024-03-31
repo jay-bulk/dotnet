@@ -1,0 +1,61 @@
+﻿@*Demo 7 - Shopping Cart; LV*@
+
+@model IEnumerable<tblOrderDetail>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+@*Get the identity associated with the claims principal *@
+
+@{var identity = Context.User.Identity;}
+
+@* check if there are orders*@
+
+@if (Model.Any())
+{
+    <h1>Orders for @identity?.Name</h1>
+
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Order Date
+                </th>
+                <th>
+                    Product
+                </th>
+                <th class="text-end">
+                    Price
+                </th>
+                <th class="text-end">
+                    Quanitity
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @($"{item.OrderFKNavigation?.OrderDate:d}")
+                    </td>
+                    <td>
+                        @item.ProductFKNavigation.ModelName
+                    </td>
+                    <td class="text-end">
+                        @item.ProductFKNavigation.UnitCost.ToString("c")
+                    </td>
+                    <td class="text-end">
+                        @item.Quantity
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h1>No orders for @identity?.Name</h1>
+}
+

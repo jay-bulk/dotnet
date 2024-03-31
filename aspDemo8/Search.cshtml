@@ -1,0 +1,82 @@
+﻿@*Demo 8 - Complete Application; LV;*@
+
+@model IEnumerable<Demo8.Models.Film>
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h3>Rockwell Studios - Search Films</h3>
+
+<form asp-action="Search" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Filter by Title: <input maxlength="20" type="text" name="searchTitle" value="@ViewData["TitleFilter"]" />
+            Tag Line: <input maxlength="20" type="text" name="searchTag" value="@ViewData["TagFilter"]" />
+            Rating:
+            <select name="searchRating" class="input-group-sm" asp-items="ViewBag.RatingFilter"></select>
+            <input type="submit" value="Search" class="btn btn-primary" />
+            <a asp-action="Search" class="btn btn-link">Back to Full List</a>
+        </p>
+    </div>
+</form>
+
+@* check if there are films*@
+
+@if (Model.Any())
+{
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th style="width:25%">
+                    @Html.DisplayNameFor(model => model.MovieTitle)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PitchText)
+                </th>
+                <th style="text-align:right">
+                    @Html.DisplayNameFor(model => model.AmountBudgeted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateInTheaters)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.RatingFKNavigation)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <a asp-action="Reviews" asp-route-id="@item.FilmPK">@Html.DisplayFor(modelItem => item.MovieTitle)</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PitchText)
+                    </td>
+                    <td style="text-align:right">
+                        @($"{item.AmountBudgeted:c0}")
+                    </td>
+                    <td>
+                        @($"{item.DateInTheaters:d}")
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RatingFKNavigation.Rating)
+                    </td>
+
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        @Html.DisplayFor(modelItem => item.Summary)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h4>No matching films</h4>
+}

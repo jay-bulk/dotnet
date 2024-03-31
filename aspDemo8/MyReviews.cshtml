@@ -1,0 +1,86 @@
+﻿@*Demo 8 - Complete Application; LV;*@
+
+@model IEnumerable<Demo8.Models.FilmReview>
+
+@{
+    ViewData["Title"] = "My Reviews";
+}
+
+@{
+    var identity = Context.User.Identity;
+}
+<h3>Rockwell Studios - Reviews for "@identity?.Name"</h3>
+
+@* success message*@
+
+@if (TempData["success"] != null)
+{
+    <div class="alert alert-success">@TempData["success"]</div>
+}
+else if (TempData["failure"] != null)
+{
+    <div class="alert alert-warning">@TempData["failure"]</div>
+}
+
+@if (Model.Any())
+{
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Film
+                </th>
+                <th>
+                    Stars
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ReviewDate)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ReviewUpdateDate)
+                </th>
+                <th>
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td style="font-weight:500">
+                        @item.FilmFKNavigation.MovieTitle
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReviewRating)
+                    </td>
+                    <td>
+                        @($"{item.ReviewDate:d}")
+                    </td>
+
+
+                    <td>
+                        @($"{item.ReviewUpdateDate:d}")
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ReviewPK">Edit</a> |
+
+                        <a asp-action="Delete" asp-route-id="@item.ReviewPK">Delete</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        @item.ReviewSummary
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h4>No reviews yet</h4>
+}

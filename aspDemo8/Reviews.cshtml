@@ -1,0 +1,80 @@
+﻿@*Demo 8 - Complete Application; LV;*@
+
+@model IEnumerable<Demo8.Models.FilmReview>
+
+@{
+    ViewData["Title"] = "Reviews";
+}
+
+@*Get the identity associated with the claims principal *@
+
+@{
+    var identity = Context.User.Identity;
+    bool isAuth = identity?.IsAuthenticated ?? false;
+}
+
+<h3>Rockwell Studios - Reviews for "@ViewData["FilmTitle"]"</h3>
+
+@* check if there are films*@
+
+@if (Model.Any())
+{
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Stars
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ReviewDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactFKNavigation)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ReviewRating)
+                    </td>
+                    <td>
+                        @($"{item.ReviewDate:d}")
+                    </td>
+
+                    <td>
+                        @item.ContactFKNavigation.FirstName @item.ContactFKNavigation.LastName
+
+                        @if (isAuth)
+                        {
+                            #nullable disable
+                            
+                            int contactFK = Int32.Parse(Context.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Sid).Value);
+                            @if (contactFK == item.ContactFK)
+                            {
+                                <br />
+                                <a asp-action="Edit" asp-controller="Review" asp-route-id="@item.ReviewPK">Edit Review</a>
+                            }
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        @Html.DisplayFor(modelItem => item.ReviewSummary)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3>No reviews yet</h3>
+}
+<div class="text-center">
+    <a asp-action="Create" asp-controller="Review" asp-route-id="@ViewData["FilmPK"]" class="btn btn-primary">Review "@ViewData["FilmTitle"]"</a>
+    <a asp-action="Search" class="btn btn-secondary">Back to Search</a>
+</div>
+
