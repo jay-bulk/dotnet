@@ -10,7 +10,10 @@ namespace HandsOnEx.Controllers
 
       Employee?[] employees = Employee.GetEmployees();
 
-      return View(employees[2]);
+      //return View(employees[2]);
+      // return View(employees);
+      ViewBag.Experience = 7;
+      return View();
     }
   }
 }

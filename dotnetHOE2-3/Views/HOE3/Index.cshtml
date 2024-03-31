@@ -9,10 +9,9 @@ Layout = "~/Views/Shared/_HOE3Layout.cshtml";
 @*
 <p>Name: @Model?.Name</p>
 <p>Department: @Model?.Department</p>
-<p>Salary: @($"{Model?.Salary:c0}")</p>
-<p>Full: @Model?.Salary</p> *@
+<p>Salary: @($"{Model?.Salary:c0}")</p> *@
 
-<table>
+@* <table>
     <thead>
         <tr>
             <th>Name</th>
@@ -27,4 +26,28 @@ Layout = "~/Views/Shared/_HOE3Layout.cshtml";
         </tr>
         }
     </tbody>
-</table>
+</table> *@
+
+@if (ViewBag.Experience == 0) {
+    @: OK
+} else if (ViewBag.Experience <= 4 ) {
+    <b>Good</b>
+} else {
+    <b>@ViewBag.Experience Years - Great</b>
+}
+@switch (ViewBag.Experience) {
+    case 0:
+        @: OK
+        break;
+        case 1:
+        case 2:
+        case 3:
+        @: Good
+        break;
+        case 4:
+        @: Great
+        break;
+        default:
+        @: @ViewBag.Experience Years - Excellent
+        break;
+}
