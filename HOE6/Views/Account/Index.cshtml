@@ -1,0 +1,53 @@
+﻿@model IEnumerable<HandOnEx6.Models.LoginInfo>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Uname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UPass)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.URole)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Uname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UPass)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.URole)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.UserPK">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.UserPK">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.UserPK">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

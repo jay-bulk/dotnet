@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "TableView";
+}
+
+<h2>TableView - Product Catalog</h2>
+<table class="table table-sm table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Unit Price</th>
+            <th>Description</th>
+            <th>Subcategory</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model) {
+            <tr>
+            <td>@p.ModelName</td>
+        <td>@p.UnitCost.ToString("c")</td>
+        <td>@p.Description</td>
+        <td>@p.SubCategoryFKNavigation.SubCategoryName</td>
+        <td>@p.CategoryFKNavigation.CategoryName</td>
+        </tr>
+        }
+    </tbody>
+</table>
+

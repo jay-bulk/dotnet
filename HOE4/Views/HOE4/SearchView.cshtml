@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = "SearchView";
+}
+
+<h1>Tara Store - Product Catalog</h1>
+<form asp-action="SearchView" method="post">
+    <div class="form-group">
+        <p>
+            Search by Product Name: <input maxlength="20" type="test" name="searchName" value="@ViewData["NameFilter"]"/>
+            Minimum Price: <input type="number" min="0" max="1000" name="priceMin" value="@ViewData["PriceMinFilter"]"/>
+            Maximum Price: <input type="number" min="0" max="1000" name="priceMax" value="@ViewData["PriceMaxFilter"]"/>
+            <input type="submit" value="Search" class="btn btn-primary"/>
+            <a asp-action="SearchView">Reset</a>
+        </p>
+    </div>
+</form>
+@if (Model.Any())
+{
+    <table class="table table-sm table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Unit Price</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model) {
+            <tr>
+            <td>@p.ModelName</td>
+        <td>@p.UnitCost.ToString("c")</td>
+        <td>@p.Description</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+}
+

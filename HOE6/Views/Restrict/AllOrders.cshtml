@@ -1,0 +1,38 @@
+﻿@model IEnumerable<tblOrder>
+
+@{
+    ViewData["Title"] = "All Orders";
+}
+
+@{
+    var identity = Context.User.Identity;
+}
+@if (Model.Any())
+{
+    <h1>All Customer Orders</h1>
+
+    <table class="table table-sm table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Customer Name</th>
+                <th>No. of Orders</th>
+                <th class="text-end">Price</th>
+                <th class="text-end">Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model) {
+                <tr>
+                    <td>
+                        @($"{order.CustomerFKNavigation.FullName}")
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+}
+else
+{
+    <h1>No orders for @identity?.Name</h1>
+}
